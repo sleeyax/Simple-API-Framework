@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# If it isn't an actual dir, file or symlink then redirect to index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Get params, which are sent to server:
+# http://localhost/test/test2 => http://localhost/index.php?request=test/test2
+RewriteRule ^(.+)$ index.php?request=$1 [QSA,L]
+
+# Deny user access when they try to browse to these folders/files:
+RewriteRule  .*(core) - [F]
